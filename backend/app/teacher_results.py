@@ -1,14 +1,14 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy import func
-from app.db import SessionLocal
+from sqlalchemy.orm import Session
+from app.db import get_db
 from app.models import Result, Assessment, User
 
 router = APIRouter()
 
-# =Ê Get results for a specific assessment
+# =ï¿½ Get results for a specific assessment
 @router.get("/results/{assessment_id}")
-def get_assessment_results(assessment_id: int):
-    db = SessionLocal()
+def get_assessment_results(assessment_id: int, db: Session = Depends(get_db)):
     results = db.query(Result).filter(Result.assessment_id == assessment_id).all()
     if not results:
         raise HTTPException(status_code=404, detail="No results found for this assessment")
@@ -33,10 +33,9 @@ def get_assessment_results(assessment_id: int):
     }
 
 
-# =È Summary for teacher (all assessments)
+# =ï¿½ Summary for teacher (all assessments)
 @router.get("/summary/{teacher_id}")
-def get_teacher_summary(teacher_id: int):
-    db = SessionLocal()
+def get_teacher_summary(teacher_id: int, db: Session = Depends(get_db)):
     assessments = db.query(Assessment).filter(Assessment.teacher_id == teacher_id).all()
     summary = []
 

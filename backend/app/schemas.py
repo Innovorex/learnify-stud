@@ -7,6 +7,8 @@ class RegisterRequest(BaseModel):
     email: str
     password: str
     role: str
+    class_name: Optional[str] = None  # Only for students
+    section: Optional[str] = None  # Only for students
 
 class LoginRequest(BaseModel):
     email: str
@@ -15,6 +17,7 @@ class LoginRequest(BaseModel):
 class AssessmentCreate(BaseModel):
     teacher_id: int
     class_name: str
+    section: str
     subject: str
     chapter: str
     start_time: datetime
@@ -24,6 +27,7 @@ class AssessmentCreate(BaseModel):
 class AssessmentOut(BaseModel):
     id: int
     class_name: str
+    section: str
     subject: str
     chapter: str
     start_time: datetime

@@ -1,0 +1,11 @@
+INFO:     Will watch for changes in these directories: ['/home/hub_ai/ls/backend']
+INFO:     Uvicorn running on http://0.0.0.0:3003 (Press CTRL+C to quit)
+INFO:     Started reloader process [591160] using StatReload
+INFO:     Started server process [591162]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:53312 - "GET /api/syllabus/health HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53400 - "GET /syllabus/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53492 - "GET /syllabus/subjects/10 HTTP/1.1" 200 OK
+✅ Using cached syllabus (age: 0 days)
+INFO:     127.0.0.1:53526 - "GET /syllabus/topics/10/Mathematics HTTP/1.1" 200 OK

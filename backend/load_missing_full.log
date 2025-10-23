@@ -1,0 +1,205 @@
+======================================================================
+🔄 LOADING MISSING CLASS 9-10 SYLLABI
+======================================================================
+
+======================================================================
+📚 CLASS 9
+======================================================================
+
+   Loading: English...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Hindi...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Mathematics...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Science...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Physics...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Chemistry...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Biology...
+   ⏭️  Already loaded (skipping)
+
+   Loading: History...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Geography...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Economics...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Accountancy...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Business Studies...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Psychology...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Sociology...
+   ⏭️  Already loaded (skipping)
+
+======================================================================
+📚 CLASS 10
+======================================================================
+
+   Loading: English...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Hindi...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Mathematics...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Science...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Physics...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Chemistry...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Biology...
+   ⏭️  Already loaded (skipping)
+
+   Loading: History...
+  📥 Fetching PDF (attempt 1/3)...
+  🔐 SHA256: 929919da3b18dded...
+  📄 Extracting text from PDF...
+  ✅ Extracted with PyMuPDF
+  ✅ Created new syllabus entry
+  🤖 Parsing syllabus structure with AI...
+  ✅ Stored 7 topics
+  ✅ Syllabus stored successfully (26002ms)
+✅ Using cached syllabus (age: -1 days)
+   ✅ Loaded: 52,776 chars, 7 topics
+
+   Loading: Geography...
+  📥 Fetching PDF (attempt 1/3)...
+  🔐 SHA256: 0c447d65f3f4b317...
+  📄 Extracting text from PDF...
+  ✅ Extracted with PyMuPDF
+  ✅ Created new syllabus entry
+  🤖 Parsing syllabus structure with AI...
+  ✅ Stored 11 topics
+  ✅ Syllabus stored successfully (27639ms)
+✅ Using cached syllabus (age: -1 days)
+   ✅ Loaded: 72,062 chars, 11 topics
+
+   Loading: Economics...
+  📥 Fetching PDF (attempt 1/3)...
+  🔐 SHA256: 8ff149b24d61af7e...
+  📄 Extracting text from PDF...
+  ✅ Extracted with PyMuPDF
+  ✅ Created new syllabus entry
+  🤖 Parsing syllabus structure with AI...
+  ✅ Stored 8 topics
+  ✅ Syllabus stored successfully (48146ms)
+✅ Using cached syllabus (age: -1 days)
+   ✅ Loaded: 20,544 chars, 8 topics
+
+   Loading: Accountancy...
+  📥 Fetching PDF (attempt 1/3)...
+  🔐 SHA256: f9761d764d6756e6...
+  📄 Extracting text from PDF...
+  ✅ Extracted with PyMuPDF
+  ✅ Created new syllabus entry
+  🤖 Parsing syllabus structure with AI...
+  ✅ Stored 13 topics
+  ✅ Syllabus stored successfully (89896ms)
+✅ Using cached syllabus (age: -1 days)
+   ✅ Loaded: 9,385 chars, 13 topics
+
+   Loading: Business Studies...
+  📥 Fetching PDF (attempt 1/3)...
+  🔐 SHA256: ac3d1e72b1a5ea88...
+  📄 Extracting text from PDF...
+  ✅ Extracted with PyMuPDF
+  ✅ Created new syllabus entry
+  🤖 Parsing syllabus structure with AI...
+  ✅ Stored 11 topics
+  ✅ Syllabus stored successfully (51725ms)
+✅ Using cached syllabus (age: -1 days)
+   ✅ Loaded: 61,730 chars, 11 topics
+
+   Loading: Psychology...
+  📥 Fetching PDF (attempt 1/3)...
+  🔐 SHA256: edee3bd5d4260958...
+  📄 Extracting text from PDF...
+  ✅ Extracted with PyMuPDF
+  ✅ Created new syllabus entry
+  🤖 Parsing syllabus structure with AI...
+  ✅ Stored 8 topics
+  ✅ Syllabus stored successfully (95859ms)
+✅ Using cached syllabus (age: -1 days)
+   ✅ Loaded: 14,957 chars, 8 topics
+
+   Loading: Sociology...
+  📥 Fetching PDF (attempt 1/3)...
+  🔐 SHA256: 811cd051d6365efe...
+  📄 Extracting text from PDF...
+  ✅ Extracted with PyMuPDF
+  ✅ Created new syllabus entry
+  🤖 Parsing syllabus structure with AI...
+  ✅ Stored 7 topics
+  ✅ Syllabus stored successfully (15830ms)
+✅ Using cached syllabus (age: -1 days)
+   ✅ Loaded: 16,212 chars, 7 topics
+
+======================================================================
+📊 FINAL SUMMARY
+======================================================================
+✅ Successfully loaded: 7
+⏭️  Already existed: 21
+❌ Failed/Unavailable: 0
+======================================================================
+
+📚 Total Syllabi in Database:
+
+Breakdown by Class:
+
+   Class 10:
+      - Accountancy (055)
+      - Biology (044)
+      - Business Studies (054)
+      - Chemistry (043)
+      - Economics (030)
+      - English (184)
+      - Geography (N/A)
+      - Hindi (N/A)
+      - History (N/A)
+      - Mathematics (041)
+      - Physics (042)
+      - Psychology (N/A)
+      - Science (086)
+      - Sociology (N/A)
+   Class 9:
+      - Accountancy (055)
+      - Biology (044)
+      - Business Studies (054)
+      - Chemistry (043)
+      - Economics (030)
+      - English (184)
+      - Geography (N/A)
+      - Hindi (N/A)
+      - History (N/A)
+      - Mathematics (041)
+      - Physics (042)
+      - Psychology (N/A)
+      - Science (086)
+      - Sociology (N/A)
+
+======================================================================
+✅ All available syllabi loaded!
+======================================================================

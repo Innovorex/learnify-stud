@@ -1,0 +1,122 @@
+======================================================================
+🔄 LOADING MISSING CLASS 9-10 SYLLABI
+======================================================================
+
+======================================================================
+📚 CLASS 9
+======================================================================
+
+   Loading: English...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Hindi...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Mathematics...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Science...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Physics...
+   ❌ Error: EnhancedSyllabusService.fetch_and_store_syllabus() got an unexpected keyword argument 'force_refresh
+
+   Loading: Chemistry...
+   ❌ Error: EnhancedSyllabusService.fetch_and_store_syllabus() got an unexpected keyword argument 'force_refresh
+
+   Loading: Biology...
+   ❌ Error: EnhancedSyllabusService.fetch_and_store_syllabus() got an unexpected keyword argument 'force_refresh
+
+   Loading: History...
+   ❌ Error: EnhancedSyllabusService.fetch_and_store_syllabus() got an unexpected keyword argument 'force_refresh
+
+   Loading: Geography...
+   ❌ Error: EnhancedSyllabusService.fetch_and_store_syllabus() got an unexpected keyword argument 'force_refresh
+
+   Loading: Economics...
+   ❌ Error: EnhancedSyllabusService.fetch_and_store_syllabus() got an unexpected keyword argument 'force_refresh
+
+   Loading: Accountancy...
+   ❌ Error: EnhancedSyllabusService.fetch_and_store_syllabus() got an unexpected keyword argument 'force_refresh
+
+   Loading: Business Studies...
+   ❌ Error: EnhancedSyllabusService.fetch_and_store_syllabus() got an unexpected keyword argument 'force_refresh
+
+   Loading: Psychology...
+   ❌ Error: EnhancedSyllabusService.fetch_and_store_syllabus() got an unexpected keyword argument 'force_refresh
+
+   Loading: Sociology...
+   ❌ Error: EnhancedSyllabusService.fetch_and_store_syllabus() got an unexpected keyword argument 'force_refresh
+
+======================================================================
+📚 CLASS 10
+======================================================================
+
+   Loading: English...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Hindi...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Mathematics...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Science...
+   ⏭️  Already loaded (skipping)
+
+   Loading: Physics...
+   ❌ Error: EnhancedSyllabusService.fetch_and_store_syllabus() got an unexpected keyword argument 'force_refresh
+
+   Loading: Chemistry...
+   ❌ Error: EnhancedSyllabusService.fetch_and_store_syllabus() got an unexpected keyword argument 'force_refresh
+
+   Loading: Biology...
+   ❌ Error: EnhancedSyllabusService.fetch_and_store_syllabus() got an unexpected keyword argument 'force_refresh
+
+   Loading: History...
+   ❌ Error: EnhancedSyllabusService.fetch_and_store_syllabus() got an unexpected keyword argument 'force_refresh
+
+   Loading: Geography...
+   ❌ Error: EnhancedSyllabusService.fetch_and_store_syllabus() got an unexpected keyword argument 'force_refresh
+
+   Loading: Economics...
+   ❌ Error: EnhancedSyllabusService.fetch_and_store_syllabus() got an unexpected keyword argument 'force_refresh
+
+   Loading: Accountancy...
+   ❌ Error: EnhancedSyllabusService.fetch_and_store_syllabus() got an unexpected keyword argument 'force_refresh
+
+   Loading: Business Studies...
+   ❌ Error: EnhancedSyllabusService.fetch_and_store_syllabus() got an unexpected keyword argument 'force_refresh
+
+   Loading: Psychology...
+   ❌ Error: EnhancedSyllabusService.fetch_and_store_syllabus() got an unexpected keyword argument 'force_refresh
+
+   Loading: Sociology...
+   ❌ Error: EnhancedSyllabusService.fetch_and_store_syllabus() got an unexpected keyword argument 'force_refresh
+
+======================================================================
+📊 FINAL SUMMARY
+======================================================================
+✅ Successfully loaded: 0
+⏭️  Already existed: 8
+❌ Failed/Unavailable: 20
+======================================================================
+
+📚 Total Syllabi in Database:
+
+Breakdown by Class:
+
+   Class 10:
+      - English (184)
+      - Hindi (N/A)
+      - Mathematics (041)
+      - Science (086)
+   Class 9:
+      - English (184)
+      - Hindi (N/A)
+      - Mathematics (041)
+      - Science (086)
+
+======================================================================
+✅ All available syllabi loaded!
+======================================================================

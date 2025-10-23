@@ -1,0 +1,83 @@
+======================================================================
+🔄 RE-PARSING CLASS 9-10 SYLLABI FOR COMPLETE CHAPTERS
+======================================================================
+
+======================================================================
+📚 CLASS 9
+======================================================================
+
+📖 English...
+   Content: 22,280 chars
+   🗑️  Deleting 5 old chapters...
+   🤖 Re-parsing with AI...
+   ❌ Error: 'EnhancedSyllabusService' object has no attribute '_parse_syllabus_structure_with_ai'
+
+📖 Hindi...
+   Content: 24,472 chars
+   🗑️  Deleting 4 old chapters...
+   🤖 Re-parsing with AI...
+   ❌ Error: 'EnhancedSyllabusService' object has no attribute '_parse_syllabus_structure_with_ai'
+
+📖 Mathematics...
+   Content: 18,642 chars
+   🤖 Re-parsing with AI...
+   ❌ Error: 'EnhancedSyllabusService' object has no attribute '_parse_syllabus_structure_with_ai'
+
+📖 Science...
+   Content: 17,839 chars
+   🗑️  Deleting 4 old chapters...
+   🤖 Re-parsing with AI...
+   ❌ Error: 'EnhancedSyllabusService' object has no attribute '_parse_syllabus_structure_with_ai'
+
+======================================================================
+📚 CLASS 10
+======================================================================
+
+📖 English...
+   Content: 22,280 chars
+   🗑️  Deleting 5 old chapters...
+   🤖 Re-parsing with AI...
+   ❌ Error: 'EnhancedSyllabusService' object has no attribute '_parse_syllabus_structure_with_ai'
+
+📖 Hindi...
+   Content: 24,472 chars
+   🗑️  Deleting 3 old chapters...
+   🤖 Re-parsing with AI...
+   ❌ Error: 'EnhancedSyllabusService' object has no attribute '_parse_syllabus_structure_with_ai'
+
+📖 Mathematics...
+   Content: 18,642 chars
+   🗑️  Deleting 10 old chapters...
+   🤖 Re-parsing with AI...
+   ❌ Error: 'EnhancedSyllabusService' object has no attribute '_parse_syllabus_structure_with_ai'
+
+📖 Science...
+   Content: 17,839 chars
+   🗑️  Deleting 9 old chapters...
+   🤖 Re-parsing with AI...
+   ❌ Error: 'EnhancedSyllabusService' object has no attribute '_parse_syllabus_structure_with_ai'
+
+======================================================================
+📊 FINAL SUMMARY
+======================================================================
+✅ Successfully re-parsed: 0 syllabi
+📚 Total chapters extracted: 0
+======================================================================
+
+📋 FINAL CHAPTER STATUS:
+
+   Class 9:
+      English: 0 chapters
+      Hindi: 0 chapters
+      Mathematics: 0 chapters
+      Science: 0 chapters
+
+   Class 10:
+      English: 0 chapters
+      Hindi: 0 chapters
+      Mathematics: 0 chapters
+      Science: 0 chapters
+
+======================================================================
+✅ RE-PARSING COMPLETED!
+======================================================================
