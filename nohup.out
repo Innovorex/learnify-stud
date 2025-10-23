@@ -1,0 +1,16 @@
+npm error code ENOENT
+npm error syscall open
+npm error path /home/learnify/learnify-stud/package.json
+npm error errno -2
+npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open '/home/learnify/learnify-stud/package.json'
+npm error enoent This is related to npm not being able to find a file.
+npm error enoent
+npm error A complete log of this run can be found in: /home/learnify/.npm/_logs/2025-10-10T12_33_18_054Z-debug-0.log
+npm error code ENOENT
+npm error syscall open
+npm error path /home/learnify/learnify-stud/package.json
+npm error errno -2
+npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open '/home/learnify/learnify-stud/package.json'
+npm error enoent This is related to npm not being able to find a file.
+npm error enoent
+npm error A complete log of this run can be found in: /home/learnify/.npm/_logs/2025-10-10T12_33_27_729Z-debug-0.log
