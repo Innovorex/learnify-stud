@@ -8,6 +8,8 @@ import { toast } from 'sonner';
 
 interface Assessment {
   id: number;
+  class_name: string;
+  section: string;
   subject: string;
   chapter: string;
   start_time: string;
@@ -91,6 +93,8 @@ export function TeacherDashboard() {
 
       return {
         id: `AS${assessment.id.toString().padStart(3, '0')}`,
+        className: assessment.class_name,
+        section: assessment.section,
         subject: assessment.subject,
         chapter: assessment.chapter,
         startTime: new Date(assessment.start_time).toLocaleString('en-US', {
@@ -162,6 +166,8 @@ export function TeacherDashboard() {
               <TableHeader>
                 <TableRow>
                   <TableHead>ID</TableHead>
+                  <TableHead>Class</TableHead>
+                  <TableHead>Section</TableHead>
                   <TableHead>Subject</TableHead>
                   <TableHead>Chapter</TableHead>
                   <TableHead>Start Time</TableHead>
@@ -172,6 +178,8 @@ export function TeacherDashboard() {
                 {recentActivity.map((activity) => (
                   <TableRow key={activity.id}>
                     <TableCell>{activity.id}</TableCell>
+                    <TableCell>{activity.className}</TableCell>
+                    <TableCell>{activity.section}</TableCell>
                     <TableCell>{activity.subject}</TableCell>
                     <TableCell>{activity.chapter}</TableCell>
                     <TableCell>{activity.startTime}</TableCell>

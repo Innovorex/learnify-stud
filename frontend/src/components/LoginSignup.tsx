@@ -22,6 +22,8 @@ export function LoginSignup({ onLogin }: LoginSignupProps) {
   const [signupEmail, setSignupEmail] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
   const [signupRole, setSignupRole] = useState<'teacher' | 'student'>('student');
+  const [signupClass, setSignupClass] = useState('');
+  const [signupSection, setSignupSection] = useState('');
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,7 +44,9 @@ export function LoginSignup({ onLogin }: LoginSignupProps) {
         id: user.id,
         name: user.name,
         email: user.email,
-        role: user.role
+        role: user.role,
+        class_name: user.class_name,
+        section: user.section
       };
 
       toast.success('Login successful!');
@@ -59,12 +63,20 @@ export function LoginSignup({ onLogin }: LoginSignupProps) {
       return;
     }
 
+    // Validate class and section for students
+    if (signupRole === 'student' && (!signupClass || !signupSection)) {
+      toast.error('Please enter your class and section');
+      return;
+    }
+
     try {
       await authAPI.register({
         name: signupName,
         email: signupEmail,
         password: signupPassword,
-        role: signupRole
+        role: signupRole,
+        class_name: signupRole === 'student' ? signupClass : undefined,
+        section: signupRole === 'student' ? signupSection : undefined
       });
 
       toast.success('Account created successfully! Please login.');
@@ -74,6 +86,8 @@ export function LoginSignup({ onLogin }: LoginSignupProps) {
       setSignupEmail('');
       setSignupPassword('');
       setSignupRole('student');
+      setSignupClass('');
+      setSignupSection('');
 
       // Switch to login tab
       setActiveTab('login');
@@ -241,6 +255,36 @@ export function LoginSignup({ onLogin }: LoginSignupProps) {
                         </SelectContent>
                       </Select>
                     </div>
+
+                    {signupRole === 'student' && (
+                      <>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="signup-class">Class</Label>
+                            <Input
+                              id="signup-class"
+                              type="text"
+                              placeholder="e.g., 10"
+                              value={signupClass}
+                              onChange={(e) => setSignupClass(e.target.value)}
+                              className="bg-input-background"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="signup-section">Section</Label>
+                            <Input
+                              id="signup-section"
+                              type="text"
+                              placeholder="e.g., A"
+                              value={signupSection}
+                              onChange={(e) => setSignupSection(e.target.value)}
+                              className="bg-input-background"
+                            />
+                          </div>
+                        </div>
+                      </>
+                    )}
+
                     <Button type="submit" className="w-full">
                       Sign Up
                     </Button>

@@ -58,7 +58,18 @@
     },
     server: {
       port: 3004,
+      host: '0.0.0.0',  // Listen on all interfaces
       open: true,
+      hmr: {
+        clientPort: 443,  // For HTTPS reverse proxy
+        protocol: 'wss',  // WebSocket Secure for HMR
+      },
+      allowedHosts: [
+        'learnifystudent.innovorex.co.in',
+        'localhost',
+        '127.0.0.1',
+        '104.251.217.119',
+      ],
       proxy: {
         '/api': {
           target: 'http://localhost:3003',

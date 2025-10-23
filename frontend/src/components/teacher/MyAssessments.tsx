@@ -16,6 +16,8 @@ import { toast } from 'sonner';
 
 interface Assessment {
   id: number;
+  class_name: string;
+  section: string;
   subject: string;
   chapter: string;
   start_time: string;
@@ -26,7 +28,9 @@ interface Assessment {
 interface Question {
   id: number;
   question: string;
-  options: string[];
+  options: { [key: string]: string };
+  correct_answer: string;
+  difficulty: string;
 }
 
 export function MyAssessments() {
@@ -138,6 +142,8 @@ export function MyAssessments() {
               <TableHeader>
                 <TableRow>
                   <TableHead>ID</TableHead>
+                  <TableHead>Class</TableHead>
+                  <TableHead>Section</TableHead>
                   <TableHead>Subject</TableHead>
                   <TableHead>Chapter</TableHead>
                   <TableHead>Start Time</TableHead>
@@ -153,6 +159,8 @@ export function MyAssessments() {
                   return (
                     <TableRow key={assessment.id}>
                       <TableCell>AS{assessment.id.toString().padStart(3, '0')}</TableCell>
+                      <TableCell>{assessment.class_name}</TableCell>
+                      <TableCell>{assessment.section}</TableCell>
                       <TableCell>{assessment.subject}</TableCell>
                       <TableCell>{assessment.chapter}</TableCell>
                       <TableCell>
@@ -221,15 +229,31 @@ export function MyAssessments() {
               <p className="text-muted-foreground text-center py-8">No questions found</p>
             ) : (
               questions.map((q, index) => (
-                <div key={q.id} className="p-4 bg-muted rounded-lg">
-                  <p className="mb-2">
-                    <span>{index + 1}. </span>
-                    {q.question}
-                  </p>
+                <div key={q.id} className="p-4 bg-muted rounded-lg space-y-3">
+                  <div className="flex items-start justify-between">
+                    <p className="font-medium flex-1">
+                      <span className="text-[#1E88E5] font-semibold">Q{index + 1}.</span> {q.question}
+                    </p>
+                    <Badge variant="outline" className="ml-2">
+                      {q.difficulty}
+                    </Badge>
+                  </div>
                   <div className="space-y-1 ml-4">
-                    {q.options.map((option, i) => (
-                      <p key={i}>
-                        {String.fromCharCode(65 + i)}) {option}
+                    {Object.entries(q.options).map(([key, value]) => (
+                      <p
+                        key={key}
+                        className={
+                          key === q.correct_answer
+                            ? 'text-[#43A047] font-semibold flex items-center gap-2'
+                            : ''
+                        }
+                      >
+                        {key}) {value}
+                        {key === q.correct_answer && (
+                          <span className="text-xs bg-[#43A047] text-white px-2 py-0.5 rounded">
+                            ✓ Correct
+                          </span>
+                        )}
                       </p>
                     ))}
                   </div>

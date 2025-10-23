@@ -12,33 +12,57 @@ import {
 import { StudentDashboard } from './student/StudentDashboard';
 import { UpcomingAssessments } from './student/UpcomingAssessments';
 import { MyResults } from './student/MyResults';
+import { ExamPage } from './student/ExamPage';
 
 interface StudentLayoutProps {
   user: User;
   onLogout: () => void;
 }
 
-type StudentPage = 'dashboard' | 'upcoming' | 'results';
+type StudentPage = 'dashboard' | 'upcoming' | 'results' | 'exam';
 
 export function StudentLayout({ user, onLogout }: StudentLayoutProps) {
   const [currentPage, setCurrentPage] = useState<StudentPage>('dashboard');
+  const [selectedAssessmentId, setSelectedAssessmentId] = useState<number | null>(null);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const navigation = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { id: 'upcoming', label: 'Upcoming Assessments', icon: Calendar },
+    { id: 'upcoming', label: 'My Assessments', icon: Calendar },
     { id: 'results', label: 'My Results', icon: Trophy },
   ];
+
+  const handleStartExam = (assessmentId: number) => {
+    setSelectedAssessmentId(assessmentId);
+    setCurrentPage('exam');
+  };
+
+  const handleExamComplete = () => {
+    setCurrentPage('dashboard');
+    setSelectedAssessmentId(null);
+    // Trigger dashboard refresh
+    setRefreshTrigger(prev => prev + 1);
+  };
 
   const renderPage = () => {
     switch (currentPage) {
       case 'dashboard':
-        return <StudentDashboard />;
+        return <StudentDashboard onStartExam={handleStartExam} refreshTrigger={refreshTrigger} />;
       case 'upcoming':
-        return <UpcomingAssessments />;
+        return <UpcomingAssessments onStartExam={handleStartExam} />;
       case 'results':
         return <MyResults />;
+      case 'exam':
+        return selectedAssessmentId ? (
+          <ExamPage
+            assessmentId={selectedAssessmentId}
+            onComplete={handleExamComplete}
+          />
+        ) : (
+          <StudentDashboard onStartExam={handleStartExam} refreshTrigger={refreshTrigger} />
+        );
       default:
-        return <StudentDashboard />;
+        return <StudentDashboard onStartExam={handleStartExam} refreshTrigger={refreshTrigger} />;
     }
   };
 

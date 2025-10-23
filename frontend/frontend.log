@@ -1,0 +1,12 @@
+
+> AI Assessment Dashboard Design@0.1.0 dev
+> vite
+
+
+  VITE v6.3.5  ready in 273 ms
+
+  ➜  Local:   http://localhost:3004/
+  ➜  Network: http://104.251.217.119:3004/
+5:37:37 AM [vite] (client) hmr update /src/components/student/UpcomingAssessments.tsx
+5:37:48 AM [vite] (client) hmr update /src/components/student/UpcomingAssessments.tsx
+5:38:01 AM [vite] (client) hmr update /src/components/student/UpcomingAssessments.tsx

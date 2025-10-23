@@ -10,6 +10,7 @@ import { teacherAPI } from '../../services/api';
 
 export function CreateAssessment() {
   const [className, setClassName] = useState('');
+  const [section, setSection] = useState('');
   const [subject, setSubject] = useState('');
   const [chapter, setChapter] = useState('');
   const [startTime, setStartTime] = useState('');
@@ -21,7 +22,7 @@ export function CreateAssessment() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!className || !subject || !chapter || !startTime || !endTime || !duration) {
+    if (!className || !section || !subject || !chapter || !startTime || !endTime || !duration) {
       toast.error('Please fill in all fields');
       return;
     }
@@ -31,13 +32,22 @@ export function CreateAssessment() {
     try {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
 
+      // Convert datetime-local to IST (Asia/Kolkata) format
+      // datetime-local gives us "2025-10-11T14:30" which is already in local time
+      // We need to send it as if it's IST, not convert to UTC
+      const formatToIST = (dateTimeLocal: string) => {
+        // Just append timezone offset for IST (+05:30)
+        return dateTimeLocal + ':00+05:30';
+      };
+
       await teacherAPI.createAssessment({
         teacher_id: user.id,
         class_name: className,
+        section: section,
         subject: subject,
         chapter: chapter,
-        start_time: new Date(startTime).toISOString(),
-        end_time: new Date(endTime).toISOString(),
+        start_time: formatToIST(startTime),
+        end_time: formatToIST(endTime),
         duration_minutes: parseInt(duration)
       });
 
@@ -51,6 +61,7 @@ export function CreateAssessment() {
 
         // Reset form
         setClassName('');
+        setSection('');
         setSubject('');
         setChapter('');
         setStartTime('');
@@ -82,10 +93,10 @@ export function CreateAssessment() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <Label htmlFor="className">Class Name</Label>
+                <Label htmlFor="className">Class</Label>
                 <Input
                   id="className"
-                  placeholder="e.g., 10A"
+                  placeholder="e.g., 10"
                   value={className}
                   onChange={(e) => setClassName(e.target.value)}
                   className="bg-input-background"
@@ -93,15 +104,26 @@ export function CreateAssessment() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="subject">Subject</Label>
+                <Label htmlFor="section">Section</Label>
                 <Input
-                  id="subject"
-                  placeholder="e.g., Mathematics"
-                  value={subject}
-                  onChange={(e) => setSubject(e.target.value)}
+                  id="section"
+                  placeholder="e.g., A"
+                  value={section}
+                  onChange={(e) => setSection(e.target.value)}
                   className="bg-input-background"
                 />
               </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="subject">Subject</Label>
+              <Input
+                id="subject"
+                placeholder="e.g., Mathematics"
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                className="bg-input-background"
+              />
             </div>
 
             <div className="space-y-2">
@@ -155,14 +177,14 @@ export function CreateAssessment() {
               <Button
                 type="submit"
                 disabled={isGenerating}
-                className="bg-[#1E88E5] hover:bg-[#1565C0]"
+                variant="gradient"
               >
                 <Sparkles className="h-4 w-4 mr-2" />
                 {isGenerating ? 'Generating...' : 'Generate Questions with AI'}
               </Button>
 
               {questionsGenerated && (
-                <Badge className="bg-[#43A047] hover:bg-[#43A047]/90">
+                <Badge className="bg-gradient-success">
                   Questions Generated ✅
                 </Badge>
               )}

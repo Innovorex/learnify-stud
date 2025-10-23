@@ -11,6 +11,8 @@ export interface User {
   name: string;
   email: string;
   role: 'teacher' | 'student';
+  class_name?: string;
+  section?: string;
 }
 
 export default function App() {

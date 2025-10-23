@@ -5,12 +5,14 @@ import { Button } from '../ui/button';
 import { Calendar, Clock, BookOpen } from 'lucide-react';
 import { studentAPI } from '../../services/api';
 import { toast } from 'sonner';
-import { useNavigate } from 'react-router-dom';
 
-export function UpcomingAssessments() {
+interface UpcomingAssessmentsProps {
+  onStartExam?: (assessmentId: number) => void;
+}
+
+export function UpcomingAssessments({ onStartExam }: UpcomingAssessmentsProps) {
   const [assessments, setAssessments] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetchAssessments();
@@ -19,10 +21,23 @@ export function UpcomingAssessments() {
   const fetchAssessments = async () => {
     try {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
-      // Assuming student has a class_name property, default to '10A' for now
-      const className = user.class_name || '10A';
+      const studentId = user.id;
+      const className = user.class_name;
+      const section = user.section;
 
-      const response = await studentAPI.getAssessments(className);
+      if (!className || !section) {
+        toast.error('Class and section information not found. Please contact administrator.');
+        setLoading(false);
+        return;
+      }
+
+      if (!studentId) {
+        toast.error('Student ID not found. Please login again.');
+        setLoading(false);
+        return;
+      }
+
+      const response = await studentAPI.getAssessmentsWithStatus(studentId, className, section);
       setAssessments(response.data);
       setLoading(false);
     } catch (error: any) {
@@ -31,22 +46,45 @@ export function UpcomingAssessments() {
     }
   };
 
-  const getAssessmentStatus = (startTime: string, endTime: string) => {
-    const now = new Date();
-    const start = new Date(startTime);
-    const end = new Date(endTime);
+  const getStatusBadgeClass = (status: string) => {
+    switch (status) {
+      case 'available':
+        return 'badge-gradient-available';
+      case 'completed':
+        return 'badge-gradient-completed';
+      case 'scheduled':
+        return 'badge-gradient-scheduled';
+      case 'missed':
+        return 'badge-gradient-missed';
+      default:
+        return 'bg-gray-500 text-white';
+    }
+  };
 
-    if (now >= start && now <= end) {
-      return 'Available';
-    } else if (now < start) {
-      return 'Scheduled';
-    } else {
-      return 'Expired';
+  const getStatusLabel = (status: string) => {
+    switch (status) {
+      case 'available':
+        return 'Available Now';
+      case 'completed':
+        return 'Completed';
+      case 'scheduled':
+        return 'Scheduled';
+      case 'missed':
+        return 'Missed';
+      default:
+        return status;
     }
   };
 
   const handleStartExam = (assessmentId: number) => {
-    navigate(`/student/exam/${assessmentId}`);
+    if (onStartExam) {
+      onStartExam(assessmentId);
+    }
+  };
+
+  const handleViewResult = () => {
+    // Results will be shown in the My Results page
+    toast.info('Navigate to My Results to see detailed results');
   };
 
   const formatDateTime = (datetime: string) => {
@@ -64,21 +102,22 @@ export function UpcomingAssessments() {
   return (
     <div className="space-y-6">
       <div>
-        <h1>Upcoming Assessments</h1>
-        <p className="text-muted-foreground">View all your scheduled assessments</p>
+        <h1>My Assessments</h1>
+        <p className="text-muted-foreground">View all your assessments - available, scheduled, completed, and missed</p>
       </div>
 
       {assessments.length === 0 ? (
         <Card>
           <CardContent className="p-12 text-center">
-            <p className="text-muted-foreground">No upcoming assessments at the moment</p>
+            <p className="text-muted-foreground">No assessments found for your class</p>
           </CardContent>
         </Card>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {assessments.map((assessment: any) => {
-            const status = getAssessmentStatus(assessment.start_time, assessment.end_time);
             const startDateTime = formatDateTime(assessment.start_time);
+            const endDateTime = formatDateTime(assessment.end_time);
+            const status = assessment.status;
 
             return (
               <Card key={assessment.id} className="hover:shadow-lg transition-shadow">
@@ -88,43 +127,72 @@ export function UpcomingAssessments() {
                       <CardTitle className="text-lg">{assessment.subject}</CardTitle>
                       <p className="text-sm text-muted-foreground mt-1">{assessment.chapter}</p>
                     </div>
-                    <Badge
-                      variant={status === 'Available' ? 'default' : 'secondary'}
-                      className={
-                        status === 'Available'
-                          ? 'bg-[#43A047] hover:bg-[#43A047]/90'
-                          : ''
-                      }
-                    >
-                      {status}
-                    </Badge>
+                    <div className={getStatusBadgeClass(status)}>
+                      {getStatusLabel(status)}
+                    </div>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
                     <div className="flex items-center gap-2 text-sm">
                       <Calendar className="h-4 w-4 text-muted-foreground" />
-                      <span>{startDateTime.date}</span>
+                      <span>Start: {startDateTime.date} at {startDateTime.time}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <Calendar className="h-4 w-4 text-muted-foreground" />
+                      <span>End: {endDateTime.date} at {endDateTime.time}</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm">
                       <Clock className="h-4 w-4 text-muted-foreground" />
-                      <span>
-                        {startDateTime.time} • {assessment.duration_minutes} minutes
-                      </span>
+                      <span>Duration: {assessment.duration_minutes} minutes</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm">
                       <BookOpen className="h-4 w-4 text-muted-foreground" />
                       <span>ID: AS{assessment.id.toString().padStart(3, '0')}</span>
                     </div>
+                    {status === 'completed' && assessment.score !== null && (
+                      <div className="flex items-center gap-2 text-sm font-semibold text-[#1E88E5]">
+                        <span>Score: {assessment.score}/{assessment.total_questions}</span>
+                      </div>
+                    )}
                   </div>
 
-                  <Button
-                    className="w-full bg-[#1E88E5] hover:bg-[#1565C0]"
-                    disabled={status !== 'Available'}
-                    onClick={() => handleStartExam(assessment.id)}
-                  >
-                    {status === 'Available' ? 'Start Now' : 'Not Available Yet'}
-                  </Button>
+                  {status === 'available' && (
+                    <Button
+                      variant="gradient"
+                      className="w-full font-semibold"
+                      onClick={() => handleStartExam(assessment.id)}
+                    >
+                      Start Now
+                    </Button>
+                  )}
+                  {status === 'completed' && (
+                    <Button
+                      variant="default"
+                      className="w-full"
+                      onClick={handleViewResult}
+                    >
+                      View Result
+                    </Button>
+                  )}
+                  {status === 'scheduled' && (
+                    <Button
+                      className="w-full cursor-default font-semibold"
+                      style={{ backgroundColor: '#FFF3E0', color: '#F57C00' }}
+                      disabled
+                    >
+                      Starts {startDateTime.time}
+                    </Button>
+                  )}
+                  {status === 'missed' && (
+                    <Button
+                      className="w-full cursor-default font-semibold"
+                      style={{ backgroundColor: '#FFEBEE', color: '#C62828' }}
+                      disabled
+                    >
+                      Expired
+                    </Button>
+                  )}
                 </CardContent>
               </Card>
             );

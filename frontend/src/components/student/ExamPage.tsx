@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { Progress } from '../ui/progress';
@@ -25,9 +24,12 @@ interface Question {
   options: Record<string, string>;
 }
 
-export function ExamPage() {
-  const { assessmentId } = useParams();
-  const navigate = useNavigate();
+interface ExamPageProps {
+  assessmentId: number;
+  onComplete: () => void;
+}
+
+export function ExamPage({ assessmentId, onComplete }: ExamPageProps) {
 
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -66,8 +68,9 @@ export function ExamPage() {
 
       // Get assessment duration from localStorage or fetch it
       const user = JSON.parse(localStorage.getItem('user') || '{}');
-      const className = user.class_name || '10A';
-      const assessmentsRes = await studentAPI.getAssessments(className);
+      const className = user.class_name || '10';
+      const section = user.section || 'A';
+      const assessmentsRes = await studentAPI.getAssessments(className, section);
       const currentAssessment = assessmentsRes.data.find((a: any) => a.id === Number(assessmentId));
 
       if (currentAssessment) {
@@ -78,7 +81,7 @@ export function ExamPage() {
       setLoading(false);
     } catch (error: any) {
       toast.error(error.response?.data?.detail || 'Failed to load exam questions');
-      navigate('/student/upcoming-assessments');
+      onComplete();
     }
   };
 
@@ -115,7 +118,7 @@ export function ExamPage() {
       });
 
       toast.success(`Exam submitted! Score: ${response.data.score}/${response.data.total}`);
-      navigate('/student/my-results');
+      onComplete();
     } catch (error: any) {
       toast.error('Failed to submit exam. Please try again.');
     }
@@ -123,6 +126,17 @@ export function ExamPage() {
 
   const answeredCount = Object.keys(answers).length;
   const progressPercentage = questions.length > 0 ? (answeredCount / questions.length) * 100 : 0;
+
+  // Calculate timer color based on time remaining
+  const getTimerClass = () => {
+    if (!assessment) return 'timer-safe';
+    const totalTime = assessment.duration_minutes * 60;
+    const percentage = (timeLeft / totalTime) * 100;
+
+    if (percentage > 50) return 'timer-safe';
+    if (percentage > 25) return 'timer-warning';
+    return 'timer-urgent';
+  };
 
   if (loading) {
     return (
@@ -140,7 +154,7 @@ export function ExamPage() {
         <Card>
           <CardContent className="p-8 text-center">
             <p className="text-muted-foreground">No questions available for this assessment.</p>
-            <Button onClick={() => navigate('/student/upcoming-assessments')} className="mt-4">
+            <Button onClick={onComplete} className="mt-4">
               Back to Assessments
             </Button>
           </CardContent>
@@ -165,10 +179,10 @@ export function ExamPage() {
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <Clock className="h-5 w-5 text-[#E53935]" />
+              <Clock className="h-5 w-5" />
               <div>
                 <p className="text-sm text-muted-foreground">Time Remaining</p>
-                <p className="text-lg text-[#E53935]">{formatTime(timeLeft)}</p>
+                <p className={`text-lg font-semibold ${getTimerClass()}`}>{formatTime(timeLeft)}</p>
               </div>
             </div>
           </div>
@@ -222,12 +236,12 @@ export function ExamPage() {
           {currentQuestion === questions.length - 1 ? (
             <Button
               onClick={() => setShowSubmitDialog(true)}
-              className="bg-[#43A047] hover:bg-[#43A047]/90"
+              variant="secondary"
             >
               Submit Exam
             </Button>
           ) : (
-            <Button onClick={handleNext} className="bg-[#1E88E5] hover:bg-[#1565C0]">
+            <Button onClick={handleNext} variant="gradient">
               Next
               <ChevronRight className="h-4 w-4 ml-2" />
             </Button>
@@ -249,7 +263,7 @@ export function ExamPage() {
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleSubmit}
-              className="bg-[#43A047] hover:bg-[#43A047]/90"
+              className="btn-gradient"
             >
               Submit
             </AlertDialogAction>

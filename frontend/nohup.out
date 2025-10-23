@@ -1,0 +1,64 @@
+
+> AI Assessment Dashboard Design@0.1.0 dev
+> vite --port 3004
+
+Port 3004 is in use, trying another one...
+
+  VITE v6.3.5  ready in 274 ms
+
+  ➜  Local:   http://localhost:3005/
+  ➜  Network: http://104.251.217.119:3005/
+
+> AI Assessment Dashboard Design@0.1.0 dev
+> vite --port 3004
+
+Port 3004 is in use, trying another one...
+
+  VITE v6.3.5  ready in 271 ms
+
+  ➜  Local:   http://localhost:3005/
+  ➜  Network: http://104.251.217.119:3005/
+2:59:09 AM [vite] (client) hmr update /src/components/LoginSignup.tsx, /src/components/teacher/TeacherDashboard.tsx, /src/components/teacher/CreateAssessment.tsx, /src/components/teacher/MyAssessments.tsx, /src/components/teacher/Results.tsx, /src/components/student/UpcomingAssessments.tsx, /src/components/student/StudentDashboard.tsx, /src/components/student/MyResults.tsx, /src/components/student/ExamPage.tsx
+3:10:16 AM [vite] vite.config.ts changed, restarting server...
+3:10:16 AM [vite] server restarted.
+
+> AI Assessment Dashboard Design@0.1.0 dev
+> vite --port 3004
+
+
+  VITE v6.3.5  ready in 274 ms
+
+  ➜  Local:   http://localhost:3004/
+  ➜  Network: http://104.251.217.119:3004/
+
+> AI Assessment Dashboard Design@0.1.0 dev
+> vite --port 3004 --host 0.0.0.0
+
+
+  VITE v6.3.5  ready in 278 ms
+
+  ➜  Local:   http://localhost:3004/
+  ➜  Network: http://104.251.217.119:3004/
+
+> AI Assessment Dashboard Design@0.1.0 dev
+> vite --port 3004 --host 0.0.0.0
+
+
+  VITE v6.3.5  ready in 278 ms
+
+  ➜  Local:   http://localhost:3004/
+  ➜  Network: http://104.251.217.119:3004/
+4:30:55 AM [vite] (client) hmr update /src/components/student/StudentDashboard.tsx
+4:31:21 AM [vite] (client) hmr update /src/components/student/StudentDashboard.tsx
+4:31:34 AM [vite] (client) hmr update /src/components/student/StudentDashboard.tsx
+4:32:10 AM [vite] (client) hmr update /src/components/StudentLayout.tsx
+4:32:29 AM [vite] (client) hmr update /src/components/student/ExamPage.tsx
+
+> AI Assessment Dashboard Design@0.1.0 dev
+> vite --port 3004
+
+
+  VITE v6.3.5  ready in 269 ms
+
+  ➜  Local:   http://localhost:3004/
+  ➜  Network: http://104.251.217.119:3004/

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Calendar, Clock, AlertCircle } from 'lucide-react';
@@ -7,18 +6,22 @@ import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import { studentAPI } from '../../services/api';
 import { toast } from 'sonner';
 
-export function StudentDashboard() {
+interface StudentDashboardProps {
+  onStartExam?: (assessmentId: number) => void;
+  refreshTrigger?: number;
+}
+
+export function StudentDashboard({ onStartExam, refreshTrigger }: StudentDashboardProps) {
   const [timeRemaining, setTimeRemaining] = useState('');
   const [nextExam, setNextExam] = useState<any>(null);
   const [upcomingCount, setUpcomingCount] = useState(0);
   const [completedCount, setCompletedCount] = useState(0);
   const [averageScore, setAverageScore] = useState(0);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetchDashboardData();
-  }, []);
+  }, [refreshTrigger]);
 
   useEffect(() => {
     if (!nextExam?.start_time) return;
@@ -47,31 +50,39 @@ export function StudentDashboard() {
   const fetchDashboardData = async () => {
     try {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
-      const className = user.class_name || '10A';
+      const className = user.class_name || '10';
+      const section = user.section || 'A';
 
-      // Fetch upcoming assessments
-      const assessmentsRes = await studentAPI.getAssessments(className);
+      // Fetch all assessments with their status (completed, scheduled, available, missed)
+      const assessmentsRes = await studentAPI.getAssessmentsWithStatus(user.id, className, section);
       const assessments = assessmentsRes.data;
-      setUpcomingCount(assessments.length);
 
-      // Find the closest upcoming exam
+      // Filter for upcoming assessments (scheduled and available, but NOT completed)
+      const upcomingAssessments = assessments.filter((a: any) =>
+        a.status === 'scheduled' || a.status === 'available'
+      );
+      setUpcomingCount(upcomingAssessments.length);
+
+      // Find the closest upcoming exam (not completed)
       const now = new Date();
-      const upcoming = assessments
+      const upcoming = upcomingAssessments
         .filter((a: any) => new Date(a.end_time) > now)
         .sort((a: any, b: any) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime());
 
       if (upcoming.length > 0) {
         setNextExam(upcoming[0]);
+      } else {
+        setNextExam(null);
       }
 
-      // Fetch student results
-      const resultsRes = await studentAPI.getMyResults(user.id);
-      const results = resultsRes.data;
-      setCompletedCount(results.length);
+      // Count completed assessments
+      const completed = assessments.filter((a: any) => a.status === 'completed');
+      setCompletedCount(completed.length);
 
-      if (results.length > 0) {
+      // Calculate average score from completed assessments
+      if (completed.length > 0) {
         const avg = Math.round(
-          results.reduce((acc: number, r: any) => acc + (r.score / r.total) * 100, 0) / results.length
+          completed.reduce((acc: number, a: any) => acc + (a.score / a.total_questions) * 100, 0) / completed.length
         );
         setAverageScore(avg);
       }
@@ -113,13 +124,13 @@ export function StudentDashboard() {
 
       {/* Next Exam Card */}
       {nextExam ? (
-        <Card className="border-[#1E88E5]">
-          <CardHeader>
+        <Card className="overflow-hidden">
+          <div className="card-gradient-header">
             <CardTitle className="flex items-center gap-2">
-              <Calendar className="h-5 w-5 text-[#1E88E5]" />
+              <Calendar className="h-5 w-5 text-white" />
               Next Assessment
             </CardTitle>
-          </CardHeader>
+          </div>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -131,9 +142,15 @@ export function StudentDashboard() {
                 <p className="text-lg">{nextExam.chapter}</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground mb-1">Date & Time</p>
+                <p className="text-sm text-muted-foreground mb-1">Start Time</p>
                 <p className="text-lg">
-                  {formatDate(nextExam.start_time)} at {formatTime(nextExam.start_time)}
+                  {formatDate(nextExam.start_time)}, {formatTime(nextExam.start_time)}
+                </p>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground mb-1">End Time</p>
+                <p className="text-lg">
+                  {formatDate(nextExam.end_time)}, {formatTime(nextExam.end_time)}
                 </p>
               </div>
               <div>
@@ -145,14 +162,23 @@ export function StudentDashboard() {
             {/* Countdown Timer */}
             <div className="bg-[#F7F9FC] p-6 rounded-lg text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
-                <Clock className="h-5 w-5 text-[#1E88E5]" />
+                <Clock className={`h-5 w-5 ${timeRemaining === 'Available Now!' ? 'text-[#43A047]' : timeRemaining === 'Exam Ended' ? 'text-red-600' : 'text-blue-600'}`} />
                 <p className="text-sm text-muted-foreground">Time Remaining</p>
               </div>
-              <p className="text-3xl text-[#1E88E5] mb-4">{timeRemaining}</p>
+              <p className={`text-3xl mb-4 font-semibold ${timeRemaining === 'Available Now!' ? 'text-[#43A047]' : timeRemaining === 'Exam Ended' ? 'text-red-600' : 'text-blue-600'}`}>
+                {timeRemaining}
+              </p>
               <Button
-                onClick={() => navigate(`/student/exam/${nextExam.id}`)}
+                onClick={() => onStartExam?.(nextExam.id)}
                 disabled={timeRemaining !== 'Available Now!'}
-                className="bg-[#1E88E5] hover:bg-[#1565C0]"
+                variant={timeRemaining === 'Available Now!' ? 'gradient' : 'outline'}
+                className={
+                  timeRemaining === 'Available Now!'
+                    ? 'font-semibold'
+                    : timeRemaining === 'Exam Ended'
+                    ? 'bg-red-100 text-red-700 cursor-default'
+                    : 'bg-blue-100 text-blue-700 cursor-default'
+                }
               >
                 {timeRemaining === 'Available Now!' ? 'Start Exam' :
                  timeRemaining === 'Exam Ended' ? 'Exam Ended' : 'Exam Not Started'}

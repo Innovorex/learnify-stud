@@ -4,43 +4,79 @@
 
 :root {
   --font-size: 16px;
-  --background: #F7F9FC;
-  --foreground: #1a202c;
-  --card: #ffffff;
-  --card-foreground: #1a202c;
-  --popover: #ffffff;
-  --popover-foreground: #1a202c;
-  --primary: #1E88E5;
+
+  /* ===== INNOVOREX THEME COLORS ===== */
+  /* Primary Gradient Colors */
+  --gradient-start: #667eea;  /* Soft Blue-Purple */
+  --gradient-end: #764ba2;    /* Deep Purple */
+  --primary: #6366f1;         /* Indigo (solid primary) */
   --primary-foreground: #ffffff;
-  --secondary: #43A047;
+
+  /* Accent Colors */
+  --accent-blue: #2563eb;
+  --accent-green: #10b981;
+  --accent-orange: #f59e0b;
+  --accent-red: #ef4444;
+
+  /* Background Colors */
+  --background: #f9fafb;      /* Light Gray Background */
+  --foreground: #111827;      /* Almost Black Text */
+  --card: #ffffff;
+  --card-foreground: #111827;
+  --popover: #ffffff;
+  --popover-foreground: #111827;
+
+  /* Secondary & Muted */
+  --secondary: #10b981;       /* Success Green */
   --secondary-foreground: #ffffff;
-  --muted: #e2e8f0;
-  --muted-foreground: #64748b;
-  --accent: #1E88E5;
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
+  --accent: #6366f1;          /* Indigo accent */
   --accent-foreground: #ffffff;
-  --destructive: #E53935;
+
+  /* Destructive */
+  --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --border: rgba(0, 0, 0, 0.1);
+
+  /* Border & Input */
+  --border: #e5e7eb;
   --input: transparent;
   --input-background: #ffffff;
-  --switch-background: #cbced4;
+  --switch-background: #d1d5db;
+
+  /* Ring (Focus) */
+  --ring: #6366f1;
+
+  /* Typography */
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: #1E88E5;
+
+  /* Charts */
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
+
+  /* Border Radius */
   --radius: 0.5rem;
-  --sidebar: #ffffff;
-  --sidebar-foreground: #1a202c;
-  --sidebar-primary: #1E88E5;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #F7F9FC;
-  --sidebar-accent-foreground: #1a202c;
-  --sidebar-border: rgba(0, 0, 0, 0.1);
-  --sidebar-ring: #1E88E5;
+
+  /* Sidebar (with gradient theme) */
+  --sidebar: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #ffffff;
+  --sidebar-primary-foreground: #6366f1;
+  --sidebar-accent: rgba(255, 255, 255, 0.1);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(255, 255, 255, 0.2);
+  --sidebar-ring: #ffffff;
+
+  /* Shadow Colors */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-gradient: 0 8px 16px rgba(102, 126, 234, 0.2);
 }
 
 .dark {
@@ -193,4 +229,209 @@
 
 html {
   font-size: var(--font-size);
+}
+
+/* ===== INNOVOREX CUSTOM UTILITIES ===== */
+
+/* Gradient Backgrounds */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+}
+
+.bg-gradient-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.bg-gradient-warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.bg-gradient-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+/* Gradient Buttons */
+.btn-gradient {
+  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-gradient:active {
+  transform: translateY(0);
+}
+
+/* Gradient Text */
+.text-gradient {
+  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card with Gradient Header */
+.card-gradient-header {
+  border-radius: 12px 12px 0 0;
+  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+  color: white;
+  padding: 20px 24px;
+}
+
+/* Status Badges with Gradients */
+.badge-gradient-available {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+}
+
+.badge-gradient-scheduled {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 8px rgba(245, 158, 11, 0.3);
+}
+
+.badge-gradient-completed {
+  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+.badge-gradient-missed {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+}
+
+/* Card Hover Effects */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Glassmorphism */
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Gradient Overlay */
+.gradient-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.gradient-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  pointer-events: none;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes fillDot {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.animate-fill-dot {
+  animation: fillDot 0.3s ease-out;
+}
+
+/* Timer Color Transitions */
+.timer-safe {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.timer-warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.timer-urgent {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: pulse 1.5s infinite;
 }
